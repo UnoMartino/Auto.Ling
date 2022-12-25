@@ -1,4 +1,6 @@
 # Auto.Ling
+![Auto Ling](https://user-images.githubusercontent.com/69631058/209474783-a223932c-1d36-49af-af24-092cc33e2912.png)
+
 
 Skrypt wykonujący codzienną sesję na Insta.Ling
 
