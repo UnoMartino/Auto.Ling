@@ -52,12 +52,16 @@ def saveWords():
     driver.get("https://instaling.pl/")
     button = driver.find_element(By.CSS_SELECTOR, "#navbar > a.btn.navbar-profile.p-0.m-0.pr-2 > div.login-img > div:nth-child(2) > img")
     button.click()
-    button = driver.find_element(By.CSS_SELECTOR, "#student_panel > p:nth-child(15) > a")
+    sleep(1)
+    button = driver.find_element(By.XPATH, "/html/body/div[1]/div[2]/div/p[5]/a")
     button.click()
-    button = driver.find_element(By.CSS_SELECTOR, "#account_page > div > a:nth-child(2) > h4")
+    sleep(1)
+    button = driver.find_element(By.XPATH, "/html/body/div/div[3]/div/a[1]/h4")
     button.click()
-    button = driver.find_element(By.CSS_SELECTOR, "#show_words")
+    sleep(1)
+    button = driver.find_element(By.XPATH, '//*[@id="show_words"]')
     button.click()
+    sleep(1)
 
     rows = len(driver.find_elements(By.XPATH, '//*[@id="assigned_words"]/tr'))
 
@@ -129,8 +133,10 @@ def doSession():
     driver.get("https://instaling.pl/")
     button = driver.find_element(By.CSS_SELECTOR, "#navbar > a.btn.navbar-profile.p-0.m-0.pr-2 > div.login-img > div:nth-child(2) > img")
     button.click()
-    button = driver.find_element(By.CSS_SELECTOR, "#student_panel > p:nth-child(9) > a")
+    sleep(1)
+    button = driver.find_element(By.XPATH, "/html/body/div[1]/div[2]/div/p[1]/a")
     button.click()
+    sleep(1)
 
     try:
         button = driver.find_element(By.CSS_SELECTOR, "#continue_session_button > h4")
@@ -139,7 +145,7 @@ def doSession():
         sleep(1)
     except:
         print("New session")
-        button = driver.find_element(By.CSS_SELECTOR, "#start_session_button > h4")
+        button = driver.find_element(By.CSS_SELECTOR, "#start_session_button > h4:nth-child(1)")
         button.click()
         sleep(1)
 
