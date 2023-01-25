@@ -28,7 +28,10 @@ def getSecrets():
     file.close()
     for i in secretsFile:
         i = i.split(":")
+        print(i)
         usernames.append(i[0])
+        i[1] = i[1].replace("\n", "")
+        print(i)
         passwords.append(i[1])
 
 
@@ -45,6 +48,15 @@ def login(id):
     password.send_keys(passwords[id])
     loginButton = driver.find_element(By.CSS_SELECTOR, "#main-container > div:nth-child(3) > form > div > div:nth-child(3) > button")
     loginButton.click()
+
+def logout():
+    driver.get("https://instaling.pl/")
+    button = driver.find_element(By.CSS_SELECTOR, "#navbar > a.btn.navbar-profile.p-0.m-0.pr-2 > div.login-img > div:nth-child(2) > img")
+    button.click()
+    sleep(1)
+    button = driver.find_element(By.XPATH, "/html/body/div[1]/div[2]/div/p[10]/a")
+    button.click()
+    sleep(1)
 
 
 # save words
@@ -129,6 +141,11 @@ def doOneWord():
     sleep(1)
 
 
+def knowNewWord():
+    button = driver.find_element(By.CSS_SELECTOR, "#know_new")
+    button.click()
+    sleep(1)
+
 def doSession():
     driver.get("https://instaling.pl/")
     button = driver.find_element(By.CSS_SELECTOR, "#navbar > a.btn.navbar-profile.p-0.m-0.pr-2 > div.login-img > div:nth-child(2) > img")
@@ -153,7 +170,11 @@ def doSession():
         try: 
             doOneWord()
         except:
-            break
+            try:
+                knowNewWord()
+            except:
+                break
+            
 
 def appendWord(polishWord, germanWord):
     json_file = open('words.json', "r")

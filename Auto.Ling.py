@@ -30,23 +30,34 @@ def main():
     ttk.Entry(root, textvariable=password, show="*").pack(fill=tk.X, pady=10, padx=10)
 
     doNotReplaceWords = tk.StringVar()
+    allAccounts = tk.StringVar()
 
     def login():
-        with open("./secrets.txt", "w") as file:
-            file.write(username.get() + ":" + password.get())   
+        # with open("./secrets.txt", "w") as file:
+        #     file.write(username.get() + ":" + password.get())   
         
         instalingAutomator.variables()
         instalingAutomator.getSecrets()
-        for i in range(0, len(instalingAutomator.usernames)):
-            instalingAutomator.login(i)
+        if allAccounts.get() == "1":
+            for i in range(0, len(instalingAutomator.usernames)):
+                instalingAutomator.login(i)
+                if doNotReplaceWords.get() == "0":
+                    instalingAutomator.saveWords()
+                instalingAutomator.doSession()
+                instalingAutomator.logout()
+        elif allAccounts.get() == "0":
+            instalingAutomator.login(0)
             if doNotReplaceWords.get() == "0":
                 instalingAutomator.saveWords()
             instalingAutomator.doSession()
-            instalingAutomator.driver.quit()
+
+        instalingAutomator.driver.quit()
 
     style = ttk.Style()
     style.map("Custom.TCheckbutton", foreground=[('!active', '#e5e9f0'),('pressed', '#e5e9f0'), ('active', '#e5e9f0')], background=[ ('!active','#434c5e'),('pressed', '#434c5e'), ('active', '#434c5e')], font="sans-serif 10")
     ttk.Checkbutton(root, text="Nie pobieraj słówek automatycznie", variable=doNotReplaceWords, style="Custom.TCheckbutton").pack(fill=tk.X, pady=10, padx=10)
+    ttk.Checkbutton(root, text="Wszystkie konta", variable=allAccounts, style="Custom.TCheckbutton").pack(fill=tk.X, pady=10, padx=10)
+
     ttk.Button(root, text="Uruchom", command=login).pack(fill=tk.X, pady=10, padx=10)
 
 
