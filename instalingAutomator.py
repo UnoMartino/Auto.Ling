@@ -145,6 +145,9 @@ def knowNewWord():
     button = driver.find_element(By.CSS_SELECTOR, "#know_new")
     button.click()
     sleep(1)
+    button = driver.find_element(By.CSS_SELECTOR, "#skip > h4:nth-child(1)")
+    button.click()
+    sleep(1)
 
 def doSession():
     driver.get("https://instaling.pl/")
