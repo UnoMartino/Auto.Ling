@@ -3,6 +3,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from time import sleep
 import json
+from sys import platform
 
 
 #declare variables
@@ -17,7 +18,12 @@ def variables():
     options = webdriver.ChromeOptions()
     options.add_argument("--start-maximized")
     options.add_argument("window-size=1920,1080")
-    driver = webdriver.Chrome(executable_path="./chromedriver", options=options)
+    if platform == "linux" or platform == "linux2":
+        driver = webdriver.Chrome(executable_path="./chromedriver", options=options)
+    elif platform == "darwin":
+        driver = webdriver.Chrome(executable_path="./chromedriver", options=options)
+    elif platform == "win32":
+        driver = webdriver.Chrome(executable_path="./chromedriver.exe", options=options)
     lastTwoWords = []
 
 
