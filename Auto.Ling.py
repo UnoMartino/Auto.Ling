@@ -20,9 +20,12 @@ def main():
 
     with open("./secrets.txt", "r") as file:
         fileContent = file.readlines()
-        if fileContent[0] != "" or fileContent[0] != ":":
-            username.set(fileContent[0].split(":")[0])
-            password.set(fileContent[0].split(":")[1])
+        try:
+            if fileContent[0] != "" or fileContent[0] != ":":
+                username.set(fileContent[0].split(":")[0])
+                password.set(fileContent[0].split(":")[1])
+        except:
+            pass
 
     ttk.Label(root, text="Login:", background="#434c5e", foreground="#e5e9f0").pack(anchor=tk.W, padx=10)
     ttk.Entry(root, textvariable=username).pack(fill=tk.X, pady=10, padx=10)
@@ -40,7 +43,7 @@ def main():
         file.close()
         if username.get() + ":" + password.get() not in secretsFile:
             with open("./secrets.txt", "a") as file:
-                file.write(username.get() + ":" + password.get())   
+                file.write(username.get() + ":" + password.get() + "\n")   
         
         instalingAutomator.variables()
         instalingAutomator.getSecrets()
