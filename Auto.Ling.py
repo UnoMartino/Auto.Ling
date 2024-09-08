@@ -30,7 +30,9 @@ def main():
     ttk.Entry(root, textvariable=password, show="*").pack(fill=tk.X, pady=10, padx=10)
 
     doNotReplaceWords = tk.StringVar()
+    doNotReplaceWords.set("0")
     allAccounts = tk.StringVar()
+    allAccounts.set("0")
 
     def login():
         # with open("./secrets.txt", "w") as file:

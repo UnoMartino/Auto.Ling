@@ -1,4 +1,5 @@
 from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from time import sleep
@@ -15,15 +16,18 @@ def variables():
 
     usernames = []
     passwords = []
-    options = webdriver.ChromeOptions()
-    options.add_argument("--start-maximized")
-    options.add_argument("window-size=1920,1080")
+    options = webdriver.FirefoxOptions()
+
     if platform == "linux" or platform == "linux2":
-        driver = webdriver.Chrome(executable_path="./chromedriver", options=options)
+        driver = webdriver.Firefox(options=options)
+        driver.get("https://google.com/")
     elif platform == "darwin":
-        driver = webdriver.Chrome(executable_path="./chromedriver", options=options)
+        driver = webdriver.Firefox(options=options)
+        driver.get("https://google.com/")
     elif platform == "win32":
-        driver = webdriver.Chrome(executable_path="./chromedriver.exe", options=options)
+        options.binary_location = "Mozilla Firefox\\firefox.exe"
+        driver = webdriver.Firefox(options=options)
+        driver.get("https://google.com/")
     lastTwoWords = []
 
 
@@ -43,7 +47,10 @@ def getSecrets():
 
 def login(id):
     driver.get("https://instaling.pl/")
+    sleep(2)
     assert "Insta.Ling" in driver.title
+    cookiesButton = driver.find_element(By.CSS_SELECTOR, "body > div.fc-consent-root > div.fc-dialog-container > div.fc-dialog.fc-choice-dialog > div.fc-footer-buttons-container > div.fc-footer-buttons > button.fc-button.fc-cta-consent.fc-primary-button")
+    cookiesButton.click()
     loginButton = driver.find_element(By.CSS_SELECTOR, "#navbar > a.btn.navbar-profile.p-0.m-0.pr-2 > div.btn.btn-secondary.btn-login.d-none.d-sm-none.d-lg-block.mr-3")
     loginButton.click()
     username = driver.find_element(By.NAME, "log_email")
