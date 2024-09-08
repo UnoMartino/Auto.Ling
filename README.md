@@ -5,7 +5,11 @@
 Skrypt wykonujący codzienną sesję na Insta.Ling
 
 ## Wymagania
-- Zainstalowana przeglądarka Chrome lub Chromium.
+### Windows
+- Firefox jest zawarty w pliku zip z zakładki `Releases`
+
+### Linux
+- Wymagany jest zainstalowany pakiet `firefox`
 
 ## How-to
 1. Pobierz aplikację z zakładki `Releases`
