@@ -35,8 +35,12 @@ def main():
     allAccounts.set("0")
 
     def login():
-        # with open("./secrets.txt", "w") as file:
-        #     file.write(username.get() + ":" + password.get())   
+        file = open("./secrets.txt", "r")
+        secretsFile = file.readlines()
+        file.close()
+        if username.get() + ":" + password.get() not in secretsFile:
+            with open("./secrets.txt", "a") as file:
+                file.write(username.get() + ":" + password.get())   
         
         instalingAutomator.variables()
         instalingAutomator.getSecrets()
