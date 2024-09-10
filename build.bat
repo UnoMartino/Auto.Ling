@@ -1,0 +1,1 @@
+pyinstaller -F --noconsole .\Auto.Ling.py

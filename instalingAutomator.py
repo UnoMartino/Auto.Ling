@@ -13,10 +13,12 @@ def variables():
     global passwords
     global driver
     global lastTwoWords
+    global slowInternetMode
 
     usernames = []
     passwords = []
     options = webdriver.FirefoxOptions()
+    slowInternetMode = False
 
     if platform == "linux" or platform == "linux2":
         driver = webdriver.Firefox(options=options)
@@ -49,8 +51,11 @@ def login(id):
     driver.get("https://instaling.pl/")
     sleep(2)
     assert "Insta.Ling" in driver.title
-    cookiesButton = driver.find_element(By.CSS_SELECTOR, "body > div.fc-consent-root > div.fc-dialog-container > div.fc-dialog.fc-choice-dialog > div.fc-footer-buttons-container > div.fc-footer-buttons > button.fc-button.fc-cta-consent.fc-primary-button")
-    cookiesButton.click()
+    try:
+        cookiesButton = driver.find_element(By.CSS_SELECTOR, "body > div.fc-consent-root > div.fc-dialog-container > div.fc-dialog.fc-choice-dialog > div.fc-footer-buttons-container > div.fc-footer-buttons > button.fc-button.fc-cta-consent.fc-primary-button")
+        cookiesButton.click()
+    except:
+        pass
     loginButton = driver.find_element(By.CSS_SELECTOR, "#navbar > a.btn.navbar-profile.p-0.m-0.pr-2 > div.btn.btn-secondary.btn-login.d-none.d-sm-none.d-lg-block.mr-3")
     loginButton.click()
     username = driver.find_element(By.NAME, "log_email")
@@ -136,31 +141,31 @@ def doOneWord():
             answer = driver.find_element(By.CSS_SELECTOR, "#answer")
             answer.send_keys(germanWord)
             answer.send_keys(Keys.RETURN)
-            sleep(1)
+            sleep(0.5 if not slowInternetMode else 1)
             button = driver.find_element(By.CSS_SELECTOR, "#next_word")
             button.click()
-            sleep(1)
+            sleep(0.5 if not slowInternetMode else 1)
             return
         
     print("not found")
     button = driver.find_element(By.CSS_SELECTOR, "#check > h4")
     button.click()
-    sleep(1)
+    sleep(0.5 if not slowInternetMode else 1)
     germanWord = driver.find_element(By.CSS_SELECTOR, "#word").text
     print("germanWord: ", germanWord)
     appendWord(polishWord, germanWord)
     button = driver.find_element(By.CSS_SELECTOR, "#next_word")
     button.click()
-    sleep(1)
+    sleep(0.5 if not slowInternetMode else 1)
 
 
 def knowNewWord():
     button = driver.find_element(By.CSS_SELECTOR, "#know_new")
     button.click()
-    sleep(1)
+    sleep(0.5 if not slowInternetMode else 1)
     button = driver.find_element(By.CSS_SELECTOR, "#skip > h4:nth-child(1)")
     button.click()
-    sleep(1)
+    sleep(0.5 if not slowInternetMode else 1)
 
 def doSession():
     driver.get("https://instaling.pl/")

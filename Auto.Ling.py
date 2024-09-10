@@ -1,11 +1,23 @@
 import tkinter as tk
 from tkinter import ttk
 import instalingAutomator
+import os
+from sys import platform
+
+
+def editAccounts():
+    if platform == "win32":
+        os.system("notepad ./secrets.txt")
+    elif platform == "linux":
+        os.system("gedit ./secrets.txt")
+    elif platform == "darwin":
+        os.system("open -a TextEdit ./secrets.txt")
+
 
 def main():
     root = tk.Tk()
     root.title("Auto.Ling")
-    root.geometry('600x400')
+    root.geometry('600x480')
     root.resizable(False, False)
     root.config(background="#434c5e")
 
@@ -17,6 +29,12 @@ def main():
 
     username = tk.StringVar()
     password = tk.StringVar()
+    doNotReplaceWords = tk.StringVar()
+    doNotReplaceWords.set("0")
+    allAccounts = tk.StringVar()
+    allAccounts.set("1")
+    slowInternetModeTk = tk.StringVar()
+    slowInternetModeTk.set("0")
 
     with open("./secrets.txt", "r") as file:
         fileContent = file.readlines()
@@ -24,18 +42,27 @@ def main():
             if fileContent[0] != "" or fileContent[0] != ":":
                 username.set(fileContent[0].split(":")[0])
                 password.set(fileContent[0].split(":")[1])
+                if len(fileContent) > 1:
+                    allAccounts.set("1")
+                else:
+                    allAccounts.set("0")
         except:
             pass
+    
+    with open("./words.json", "r") as file:
+        fileContent = file.readlines()
+        if fileContent == [] or fileContent == [""]:
+            doNotReplaceWords.set("0")
+        else:
+            doNotReplaceWords.set("1")
 
     ttk.Label(root, text="Login:", background="#434c5e", foreground="#e5e9f0").pack(anchor=tk.W, padx=10)
     ttk.Entry(root, textvariable=username).pack(fill=tk.X, pady=10, padx=10)
     ttk.Label(root, text="Hasło:", background="#434c5e", foreground="#e5e9f0").pack(anchor=tk.W, padx=10)
     ttk.Entry(root, textvariable=password, show="*").pack(fill=tk.X, pady=10, padx=10)
 
-    doNotReplaceWords = tk.StringVar()
-    doNotReplaceWords.set("0")
-    allAccounts = tk.StringVar()
-    allAccounts.set("0")
+    ttk.Button(root, text="Edytuj konta", command=editAccounts).pack(fill=tk.X, pady=10, padx=10)
+
 
     def login():
         file = open("./secrets.txt", "r")
@@ -46,6 +73,9 @@ def main():
                 file.write(username.get() + ":" + password.get() + "\n")   
         
         instalingAutomator.variables()
+        if slowInternetModeTk.get() == "1":
+            instalingAutomator.slowInternetMode = True
+
         instalingAutomator.getSecrets()
         if allAccounts.get() == "1":
             for i in range(0, len(instalingAutomator.usernames)):
@@ -62,10 +92,13 @@ def main():
 
         instalingAutomator.driver.quit()
 
+
+
     style = ttk.Style()
     style.map("Custom.TCheckbutton", foreground=[('!active', '#e5e9f0'),('pressed', '#e5e9f0'), ('active', '#e5e9f0')], background=[ ('!active','#434c5e'),('pressed', '#434c5e'), ('active', '#434c5e')], font="sans-serif 10")
-    ttk.Checkbutton(root, text="Nie pobieraj słówek automatycznie", variable=doNotReplaceWords, style="Custom.TCheckbutton").pack(fill=tk.X, pady=10, padx=10)
-    ttk.Checkbutton(root, text="Wszystkie konta", variable=allAccounts, style="Custom.TCheckbutton").pack(fill=tk.X, pady=10, padx=10)
+    ttk.Checkbutton(root, text="Nie pobieraj słówek automatycznie", variable=doNotReplaceWords, style="Custom.TCheckbutton", offvalue="0", onvalue="1").pack(fill=tk.X, pady=10, padx=10)
+    ttk.Checkbutton(root, text="Wszystkie konta", variable=allAccounts, style="Custom.TCheckbutton", offvalue="0", onvalue="1").pack(fill=tk.X, pady=10, padx=10)
+    ttk.Checkbutton(root, text="Tryb wolnego internetu", variable=slowInternetModeTk, style="Custom.TCheckbutton", offvalue="0", onvalue="1").pack(fill=tk.X, pady=10, padx=10)
 
     ttk.Button(root, text="Uruchom", command=login).pack(fill=tk.X, pady=10, padx=10)
 
