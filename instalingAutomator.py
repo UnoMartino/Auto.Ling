@@ -5,6 +5,7 @@ from selenium.webdriver.common.by import By
 from time import sleep
 import json
 from sys import platform
+import random
 
 
 #declare variables
@@ -14,11 +15,13 @@ def variables():
     global driver
     global lastTwoWords
     global slowInternetMode
+    global randomWordTimeMode
 
     usernames = []
     passwords = []
     options = webdriver.FirefoxOptions()
     slowInternetMode = False
+    randomWordTimeMode = False
 
     if platform == "linux" or platform == "linux2":
         driver = webdriver.Firefox(options=options)
@@ -140,6 +143,8 @@ def doOneWord():
             print("germanWord: ", germanWord)
             answer = driver.find_element(By.CSS_SELECTOR, "#answer")
             answer.send_keys(germanWord)
+            if randomWordTimeMode:
+                sleep(random.uniform(2.1, 4.8))
             answer.send_keys(Keys.RETURN)
             sleep(0.5 if not slowInternetMode else 1)
             button = driver.find_element(By.CSS_SELECTOR, "#next_word")

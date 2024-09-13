@@ -17,7 +17,7 @@ def editAccounts():
 def main():
     root = tk.Tk()
     root.title("Auto.Ling")
-    root.geometry('600x480')
+    root.geometry('600x510')
     root.resizable(False, False)
     root.config(background="#434c5e")
 
@@ -35,6 +35,9 @@ def main():
     allAccounts.set("1")
     slowInternetModeTk = tk.StringVar()
     slowInternetModeTk.set("0")
+    randomWordTime = tk.StringVar()
+    randomWordTime.set("0")
+
 
     with open("./secrets.txt", "r") as file:
         fileContent = file.readlines()
@@ -76,6 +79,9 @@ def main():
         if slowInternetModeTk.get() == "1":
             instalingAutomator.slowInternetMode = True
 
+        if randomWordTime.get() == "1":
+            instalingAutomator.randomWordTimeMode = True
+
         instalingAutomator.getSecrets()
         if allAccounts.get() == "1":
             for i in range(0, len(instalingAutomator.usernames)):
@@ -99,6 +105,8 @@ def main():
     ttk.Checkbutton(root, text="Nie pobieraj słówek automatycznie", variable=doNotReplaceWords, style="Custom.TCheckbutton", offvalue="0", onvalue="1").pack(fill=tk.X, pady=10, padx=10)
     ttk.Checkbutton(root, text="Wszystkie konta", variable=allAccounts, style="Custom.TCheckbutton", offvalue="0", onvalue="1").pack(fill=tk.X, pady=10, padx=10)
     ttk.Checkbutton(root, text="Tryb wolnego internetu", variable=slowInternetModeTk, style="Custom.TCheckbutton", offvalue="0", onvalue="1").pack(fill=tk.X, pady=10, padx=10)
+    ttk.Checkbutton(root, text="Losuj czas uzupełnienia słówka", variable=randomWordTime, style="Custom.TCheckbutton", offvalue="0", onvalue="1").pack(fill=tk.X, pady=10, padx=10)
+
 
     ttk.Button(root, text="Uruchom", command=login).pack(fill=tk.X, pady=10, padx=10)
 
