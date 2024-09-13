@@ -105,7 +105,7 @@ def main():
     ttk.Checkbutton(root, text="Nie pobieraj słówek automatycznie", variable=doNotReplaceWords, style="Custom.TCheckbutton", offvalue="0", onvalue="1").pack(fill=tk.X, pady=10, padx=10)
     ttk.Checkbutton(root, text="Wszystkie konta", variable=allAccounts, style="Custom.TCheckbutton", offvalue="0", onvalue="1").pack(fill=tk.X, pady=10, padx=10)
     ttk.Checkbutton(root, text="Tryb wolnego internetu", variable=slowInternetModeTk, style="Custom.TCheckbutton", offvalue="0", onvalue="1").pack(fill=tk.X, pady=10, padx=10)
-    ttk.Checkbutton(root, text="Losuj czas uzupełnienia słówka", variable=randomWordTime, style="Custom.TCheckbutton", offvalue="0", onvalue="1").pack(fill=tk.X, pady=10, padx=10)
+    ttk.Checkbutton(root, text="Symuluj zachowanie użytkownika", variable=randomWordTime, style="Custom.TCheckbutton", offvalue="0", onvalue="1").pack(fill=tk.X, pady=10, padx=10)
 
 
     ttk.Button(root, text="Uruchom", command=login).pack(fill=tk.X, pady=10, padx=10)
