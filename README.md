@@ -32,7 +32,8 @@ Skrypt wykonujący codzienną sesję na Insta.Ling
 [Najnowsza wersja](https://github.com/UnoMartino/Auto.Ling/releases/latest)
 
 ## Dostępne platformy
-* Linux
 * Windows
-* ~~macOS~~ (coming soon)
+* macOS (Intel)
+* ~~Linux~~ (coming soon)
+
 
