@@ -19,7 +19,8 @@ def main():
     root.title("Auto.Ling")
     root.geometry('600x510')
     root.resizable(False, False)
-    root.config(background="#434c5e")
+    if platform == "win32" or platform == "linux":
+        root.config(background="#434c5e")
 
     ttk.Label(root, text="Auto.Ling", font="sans-serif 20", background="#434c5e", foreground="#e5e9f0").pack(fill=tk.X, pady=10, padx=10)
 

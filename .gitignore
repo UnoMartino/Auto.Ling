@@ -2,3 +2,4 @@ Auto.Ling.spec
 build/
 dist/
 __pycache__/
+.vscode/

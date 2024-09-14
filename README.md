@@ -14,10 +14,15 @@ Skrypt wykonujący codzienną sesję na Insta.Ling
 ### Linux
 - Wymagany jest zainstalowany pakiet `firefox`
 
+### MacOS
+- Firefox jest zawarty w pliku zip z zakładki `Releases`
+- Uruchom terminal i wpisz `chmod +x `, następnie przeciągnij plik `Auto.Ling.command` do terminala i wciśnij enter
+- Uruchom plik `Auto.Ling.command`
+
 ## How-to
 1. Pobierz aplikację z zakładki `Releases`
 2. Wypakuj archiwum
-3. Uruchom plik `Auto.Ling`
+3. Uruchom plik `Auto.Ling` (w przypadku macOS `Auto.Ling.command`)
 4. Wprowadź dane logowania do platformy Insta.Ling (lub kliknij "Edytuj konta" i wprowadź w pliku. Składnia: `użytkownik:hasło`, zakończone nową linią)
 5. Zaznaczenie opcji "Nie pobieraj słówek automatycznie" powoduje nie pobieranie słówek z zakładki "Powtórz przed klasówką" oraz korzysta z już wcześniej pobranej/zbuforowanej listy z pliku `words.json`.
 6. Zaznaczenie opcji "Wszytskie konta" powoduje uruchomienie skryptu po kolei dla każdego konta z pliku `secrets.txt`.
