@@ -3,6 +3,8 @@ from tkinter import ttk
 import instalingAutomator
 import os
 from sys import platform
+from time import sleep
+
 
 
 def editAccounts():
@@ -87,6 +89,7 @@ def main():
         if allAccounts.get() == "1":
             for i in range(0, len(instalingAutomator.usernames)):
                 instalingAutomator.login(i)
+                sleep(2)
                 if doNotReplaceWords.get() == "0":
                     instalingAutomator.saveWords()
                 instalingAutomator.doSession()
